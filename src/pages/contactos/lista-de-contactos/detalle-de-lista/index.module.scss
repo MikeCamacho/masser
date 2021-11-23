@@ -1,0 +1,50 @@
+@import '../../../../styles/variables';
+.view_detail_campaign {
+	&__header {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+		h2 {
+			font-size: 22px;
+			line-height: 27px;
+			color: #000000;
+		}
+	}
+	&__subheader {
+		display: flex;
+		align-items: center;
+		margin-bottom: 35px;
+		h2 {
+			font-size: 24px;
+			line-height: 24px;
+			color: #e40414;
+			margin-right: 20px;
+		}
+		p {
+			font-size: 15px;
+			line-height: 14px;
+			color: #4f4f4f;
+			span {
+				margin-right: 20px;
+			}
+		}
+		a {
+			color: #10b759;
+		}
+	}
+	&__body {
+		table {
+			th {
+				border-bottom: 1px solid #e8ebf1;
+				padding: 15px 0;
+			}
+			td {
+				a {
+					color: #9d9d9d;
+				}
+			}
+		}
+	}
+}

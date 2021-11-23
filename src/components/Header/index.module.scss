@@ -1,0 +1,120 @@
+@import '../../styles/variables';
+
+.header {
+	align-items: center;
+	background: #fff;
+	border-bottom: 1px solid #e9ecef;
+	box-shadow: 3px 0 10px 0 rgb(183 192 206 / 20%);
+	display: flex;
+	height: 60px;
+	left: 240px;
+	padding: 0;
+	position: fixed;
+	right: 0;
+	transition: width 0.1s ease, left 0.1s ease;
+	width: calc(100% - 240px);
+	z-index: 978;
+	&__content {
+		display: flex;
+		height: 100%;
+		padding-left: 25px;
+		padding-right: 25px;
+		width: 100%;
+		&__search_form {
+			margin-right: 60px;
+			width: 80%;
+			@media (min-width: 768px) {
+				display: flex;
+				align-items: center !important;
+			}
+			&__input_group {
+				align-items: stretch;
+				display: flex;
+				flex-wrap: wrap;
+				position: relative;
+				width: 100%;
+				&__text {
+					background: #fff;
+					border: 0;
+					color: #7987a1;
+					padding: 0;
+				}
+			}
+			input {
+				border: none;
+				box-shadow: none;
+				font-family: $font_primary;
+				font-size: 13px;
+				line-height: 17px;
+				color: #afafaf;
+				margin-left: 10px;
+			}
+		}
+	}
+	&__nav {
+		list-style: none;
+		padding: 0;
+		width: 20%;
+		display: flex;
+		justify-content: flex-end;
+		li {
+			a {
+				font-size: 14px;
+				color: #535353;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				font-family: $font_primary;
+				font-weight: bold;
+			}
+		}
+	}
+	&__col_l {
+		display: flex;
+		width: 25%;
+		align-items: center;
+		justify-content: space-between;
+		&__logo {
+			margin: 0 0 -5px 0;
+		}
+		&__lines {
+			display: flex;
+			flex-direction: column;
+			span {
+				background: #535353;
+				border-radius: 3px;
+				width: 22px;
+				height: 2px;
+				margin-bottom: 5px;
+			}
+		}
+	}
+	&__col_r {
+		width: 70%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		label {
+			display: flex;
+			align-items: center;
+			input {
+				border: none;
+				box-shadow: none;
+				font-family: $font_primary;
+				font-size: 13px;
+				line-height: 17px;
+				color: #afafaf;
+				min-height: 20px;
+				margin-left: 15px;
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+	}
+}
+.header_expanded {
+	left: 70px;
+	right: 0;
+	width: calc(100% - 70px);
+}

@@ -1,0 +1,21 @@
+@import '../styles/variables';
+
+.content {
+	.last_messages_sent {
+		h2 {
+			font-size: 22px;
+			line-height: 27px;
+			color: #000000;
+			margin-bottom: 20px;
+		}
+		&__projects {
+			h3 {
+				font-size: 13px;
+				line-height: 17px;
+				text-transform: uppercase;
+				color: #000000;
+				margin-bottom: 18px;
+			}
+		}
+	}
+}

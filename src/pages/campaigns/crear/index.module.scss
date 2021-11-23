@@ -1,0 +1,59 @@
+@import '../../../styles/variables';
+.add_campaign {
+	&__header {
+		width: 100%;
+		margin-bottom: 35px;
+		h2 {
+			font-size: 22px;
+			line-height: 27px;
+			color: #000000;
+			margin-bottom: 25px;
+		}
+		&Title {
+			display: flex;
+			align-items: baseline;
+			p {
+				font-size: 24px;
+				line-height: 14px;
+				color: #e40414;
+				margin-right: 25px;
+			}
+			span {
+				font-size: 14px;
+				line-height: 14px;
+				color: #212529;
+			}
+		}
+	}
+	&__body {
+		&__d_flex {
+			display: flex;
+			width: 100%;
+			form {
+				width: 100%;
+				display: flex;
+				align-items: flex-start;
+			}
+		}
+	}
+	.titleh3 {
+		font-size: 16px;
+		line-height: 27px;
+		color: #000000;
+	}
+	.button_preview {
+		display: flex;
+		justify-content: flex-end;
+		margin: 10px 0;
+	}
+	.result {
+		width: 100%;
+		overflow: scroll;
+		border: 1px solid #e5e5e5;
+		padding: 5px;
+	}
+	.align_end {
+		justify-content: flex-end;
+		margin: 20px 0 5px;
+	}
+}

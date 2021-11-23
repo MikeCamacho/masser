@@ -1,0 +1,39 @@
+@import '../../../../styles/variables';
+.add_list {
+	&__header {
+		width: 100%;
+		margin-bottom: 35px;
+		h2 {
+			font-size: 22px;
+			line-height: 27px;
+			color: #000000;
+			margin-bottom: 25px;
+		}
+		&Title {
+			display: flex;
+			align-items: baseline;
+			p {
+				font-size: 24px;
+				line-height: 14px;
+				color: #e40414;
+				margin-right: 25px;
+			}
+			span {
+				font-size: 14px;
+				line-height: 14px;
+				color: #212529;
+			}
+		}
+	}
+	&__body {
+		width: 100%;
+		form {
+			width: 100%;
+		}
+		button {
+			max-width: 400px;
+			width: 100% !important;
+			margin-top: 25px;
+		}
+	}
+}

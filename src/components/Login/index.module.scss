@@ -1,0 +1,26 @@
+.login {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	p {
+		font-size: 23px;
+		text-align: center;
+		margin: 35px 0;
+	}
+	button {
+		border: none;
+		background: #10b759;
+		border-radius: 3px;
+		appearance: none;
+		color: #fff;
+		font-size: 16px;
+		line-height: 20px;
+		padding: 10px 20px;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+}

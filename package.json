@@ -1,0 +1,40 @@
+{
+  "name": "masser",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build && next export"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rennypetit/masser"
+  },
+  "author": "Renny Petit y Michael Camacho",
+  "dependencies": {
+    "@next-auth/firebase-adapter": "^0.0.2-canary.207",
+    "@uiw/react-codemirror": "^4.2.4",
+    "codemirror": "^5.64.0",
+    "dotenv": "^10.0.0",
+    "next": "11.1.2",
+    "next-auth": "^3.29.0",
+    "node-mailjet": "^3.3.4",
+    "react": "17.0.2",
+    "react-codemirror": "^1.0.0",
+    "react-codemirror2": "^7.2.1",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.18.0",
+    "react-papaparse": "^3.17.2",
+    "sweetalert2": "^11.1.10"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.27",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "sass": "^1.42.1",
+    "typescript": "4.4.3"
+  }
+}

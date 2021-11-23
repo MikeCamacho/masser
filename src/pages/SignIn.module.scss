@@ -1,0 +1,20 @@
+@import '../styles/variables';
+.form_login {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	form {
+		max-width: 400px;
+		width: 100%;
+		margin-top: 50px;
+	}
+	label {
+		margin-bottom: 10px;
+	}
+	button {
+		width: 100%;
+	}
+}

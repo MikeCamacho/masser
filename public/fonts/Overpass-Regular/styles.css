@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Overpass-Regular';
+  src: url(./Overpass-Regular.eot);
+  src: url(./Overpass-Regular.eot?#iefix) format('embedded-opentype'),
+       url(./Overpass-Regular.otf) format('otf'),
+       url(./Overpass-Regular.svg#Overpass-Regular) format('svg'),
+       url(./Overpass-Regular.ttf) format('truetype'),
+       url(./Overpass-Regular.woff) format('woff'),
+       url(./Overpass-Regular.woff2) format('woff2');
+}
