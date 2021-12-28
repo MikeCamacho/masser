@@ -42,8 +42,8 @@ export const getAll = async (
 			TotalAll: TotalAll.body.Total,
 			Message: 'Petición exitosa.',
 		});
-	} catch (error) {
-		console.error('error campains drafts getAll:', error);
+	} catch (error: any) {
+		console.error('error campains drafts getAll:', error.message);
 		res.status(500).json({
 			Data: [],
 			Total: null,
@@ -75,7 +75,10 @@ export const get = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 		} else return Data;
 	} catch (error: any) {
 		console.error('error contact get id:', error.message);
-		if (error.message.includes('404 Object not found')) {
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			// cunado el id es incorrecto
 			return res.status(404).json({
 				Data: [],
@@ -210,24 +213,22 @@ export const delet = async (
 ) => {
 	try {
 		// desestructuración
-		const {
-			body: { Data, Total },
-		} = await mailjet
-			.put('campaigndraft', { version: 'v3' })
-			.id(draft_ID)
-			.request({
-				Status: '-2',
-			});
+		await mailjet.put('campaigndraft', { version: 'v3' }).id(draft_ID).request({
+			Status: '-2',
+		});
 		return res.status(201).json({
-			Data,
-			Total,
+			Data: null,
+			Total: null,
 			TotalAll: null,
 			Message: 'draft eliminado.',
 		});
 	} catch (error: any) {
 		// Cuando el id es incorrecto
 		console.error('error contact: Controller delete', error.message);
-		if (error.message.includes('404 Object not found')) {
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			return res.status(404).json({
 				Data: [],
 				Total: null,

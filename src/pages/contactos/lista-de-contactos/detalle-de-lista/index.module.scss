@@ -11,6 +11,16 @@
 			line-height: 27px;
 			color: #000000;
 		}
+		&Buttons {
+			display: flex;
+			justify-content: flex-end;
+			button {
+				margin-right: 20px;
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
 	}
 	&__subheader {
 		display: flex;
@@ -30,8 +40,12 @@
 				margin-right: 20px;
 			}
 		}
-		a {
+		button {
 			color: #10b759;
+			background: none;
+			border: none;
+			font-size: 15px;
+			line-height: 14px;
 		}
 	}
 	&__body {
@@ -43,6 +57,12 @@
 			td {
 				a {
 					color: #9d9d9d;
+				}
+				button {
+					color: #9d9d9d;
+					background: none;
+					border: none;
+					cursor: pointer;
 				}
 			}
 		}

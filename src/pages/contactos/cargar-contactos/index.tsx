@@ -8,11 +8,11 @@ import UploadCsv from '../../../components/UploadCsv';
 
 const Index: NextPage = () => {
 	const router = useRouter();
-	const {
-		query: { ListIdCampaign },
-	} = router;
+	const ListIdCampaign = router.query.ListIdCampaign
+		? router.query.ListIdCampaign
+		: '';
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.add_contact}>
 				<div className={styles.add_contact__header}>
 					<h2>Cargar Contáctos</h2>

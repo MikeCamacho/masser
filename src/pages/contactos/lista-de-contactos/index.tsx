@@ -15,6 +15,7 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const router = useRouter();
 	const { Data } = data;
+	console.log(Data);
 
 	// Validate session ?
 	// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -28,7 +29,7 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 		return <AccesDenied />;
 	}
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.view_list_contacts}>
 				<div className={styles.view_list_contacts__header}>
 					<h2>Listas de contactos</h2>
@@ -92,7 +93,7 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 export const getServerSideProps: GetServerSideProps<{}> = async () => {
 	try {
 		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_BACKEND}/mailjet/contact-lists?Email=${process.env.NEXT_PUBLIC_EMAIL}&Offset=0&Limit=30`
+			`${process.env.NEXT_PUBLIC_API_BACKEND}/mailjet/contact-lists`
 		);
 		const data = await res.json();
 		return {

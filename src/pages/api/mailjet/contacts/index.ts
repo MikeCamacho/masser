@@ -2,8 +2,9 @@
 Archivo de routes
 */
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/client';
-import { getAll, getList, get, post, put, delet } from './controller';
+//import { getSession } from 'next-auth/client';
+
+import { getAll, getList, get, post, put } from './controller';
 import { isValidBody, isValidId } from './middleware';
 
 // declarando el tipo de valor del json a enviar al front
@@ -15,10 +16,10 @@ export default async function handler(
 	const { ContactsList = '', contact_ID = '' } = req.query;
 	const { method = '' } = req;
 	// si la persona no esta logueado
-	// const session = await getSession({ req });
-	// if (session === null) {
-	// 	return res.status(401).end();
-	// }
+	/* const session = await getSession({ req });
+	if (session === null) {
+		return res.status(401).end();
+	} */
 	switch (method.toLocaleUpperCase()) {
 		case 'GET':
 			if (contact_ID === '' && ContactsList === '') return getAll(req, res);

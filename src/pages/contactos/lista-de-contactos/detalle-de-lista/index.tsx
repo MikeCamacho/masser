@@ -6,8 +6,8 @@ import Layout from '../../../../components/Layout';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import React from 'react';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import AccesDenied from '../../../../components/Login/AccessDenied';
-
 const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 	if (status !== 201 || Object.keys(data).length === 0) {
 		return <Error statusCode={500} title={'Error de servidor'} />;
@@ -32,73 +32,92 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 	}
 
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.view_detail_campaign}>
 				<div className={styles.view_detail_campaign__header}>
 					<h2>Listas de contactos</h2>
-					<button
-						className='button-green'
-						onClick={() => {
-							router.push({
-								pathname: '/contactos/crear-contacto',
-								query: {
-									ListIdCampaign: ListIdCampaign,
-								},
-							});
-						}}
-					>
-						Añadir Contacto
-					</button>
-					<button
-						className='button-green'
-						onClick={() => {
-							router.push({
-								pathname: '/contactos/cargar-contactos',
-								query: {
-									ListIdCampaign: ListIdCampaign,
-								},
-							});
-						}}
-					>
-						Importar
-					</button>
+					<div className={styles.view_detail_campaign__headerButtons}>
+						<button
+							className='button-green'
+							onClick={() => {
+								router.push({
+									pathname: '/contactos/crear-contacto',
+									query: {
+										ListIdCampaign: ListIdCampaign,
+									},
+								});
+							}}
+						>
+							Añadir Contacto
+						</button>
+						<button
+							className='button-green'
+							onClick={() => {
+								router.push({
+									pathname: '/contactos/cargar-contactos',
+									query: {
+										ListIdCampaign: ListIdCampaign,
+									},
+								});
+							}}
+						>
+							Importar
+						</button>
+					</div>
 				</div>
 				<div className={styles.view_detail_campaign__subheader}>
 					<h2>{NameCampaign}</h2>
 					<p>
 						<span>{NumberOfContacts} - Contactos</span>
-						<a href=''>Exportar Lista</a>
+
+						<ReactHTMLTableToExcel
+							id='btn-export-excel'
+							className='download-table-xls-button'
+							table='list-contact'
+							filename={NameCampaign}
+							sheet='Pagina 1'
+							buttonText='Exportar Lista'
+						/>
 					</p>
 				</div>
 				<div className={`card-body ${styles.view_detail_campaign__body}`}>
-					<table>
+					<table id='list-contact'>
 						<thead>
 							<tr>
 								<th>Correo</th>
 								<th>Añadido</th>
+								<th>Acción</th>
 							</tr>
 						</thead>
 						<tbody>
-							{Data.map((item: any, index: number) => (
-								<tr key={index}>
-									<td>{item.Email}</td>
-									<td>{item.CreatedAt}</td>
-
-									<td>
-										<button
-											type='button'
-											onClick={() => {
-												router.push({
-													pathname: '/contactos/gestionar-contacto',
-													query: { ID: item.ID },
-												});
-											}}
-										>
-											Gestionar
-										</button>
-									</td>
-								</tr>
-							))}
+							{Data.map((item: any, index: number) => {
+								return item.IsExcludedFromCampaigns === false ? (
+									<tr key={index}>
+										<td>{item.Email}</td>
+										<td>{item.CreatedAt}</td>
+										<td>
+											<button
+												type='button'
+												onClick={() => {
+													router.push({
+														pathname: '/contactos/gestionar-contacto',
+														query: {
+															ID: item.ID,
+															ListIdCampaign: ListIdCampaign,
+															NameCampaign: NameCampaign,
+															NumberOfContacts: NumberOfContacts,
+														},
+													});
+												}}
+											>
+												Gestionar
+											</button>
+										</td>
+									</tr>
+								) : (
+									<tr></tr>
+								);
+							})}
 						</tbody>
 					</table>
 				</div>

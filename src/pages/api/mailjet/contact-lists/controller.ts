@@ -67,8 +67,11 @@ export const get = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 			Message: 'Petición exitosa.',
 		});
 	} catch (error: any) {
-		console.error('error contactList get id:', error);
-		if (error.message.includes('404 Object not found')) {
+		console.error('error contactList get id:', error.message);
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			return res.status(404).json({
 				Data: [],
 				Total: null,
@@ -148,7 +151,10 @@ export const put = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 		} catch (error: any) {
 			// Cuando el id es incorrecto
 			console.error('error contact: Controller Put', error.message);
-			if (error.message.includes('404 Object not found')) {
+			if (
+				error.message.includes('Object not found') ||
+				error.message.includes('Unsuccessful')
+			) {
 				return res.status(404).json({
 					Data: [],
 					Total: null,
@@ -192,7 +198,10 @@ export const delet = async (
 	} catch (error: any) {
 		// Cuando el id es incorrecto
 		console.error('error contact: Controller delete', error.message);
-		if (error.message.includes('404 Object not found')) {
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			return res.status(404).json({
 				Data: [],
 				Total: null,

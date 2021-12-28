@@ -20,6 +20,7 @@ export const isValidBody = (
 		Subject = '',
 		Title = '',
 		ContactsListID = '',
+		HtmlPart = '',
 	} = req.body;
 	const number = /^([0-9])*$/; // valida number.
 	const email = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/; // valida email.
@@ -61,6 +62,10 @@ export const isValidBody = (
 			message:
 				'El campo ContactsListID debe de ser de tipo Number y no puede estar vacio.',
 		});
+	} else if (String(HtmlPart).trim().length <= 0) {
+		res.status(400).json({
+			message: 'El campo HtmlPart no puede estar vacio.',
+		});
 		return false; // no debe continuar.
 	} else return true; // puede continuar.
 };
@@ -95,7 +100,7 @@ export const isValidContactList = async (
 export const isValidStatus = async (
 	req: NextApiRequest,
 	res: NextApiResponse<Data>,
-	draft_ID
+	draft_ID: any
 ) => {
 	try {
 		const {

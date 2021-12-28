@@ -5,7 +5,7 @@ import Layout from '../../../components/Layout';
 import styles from './index.module.scss';
 import { useSession } from 'next-auth/client';
 import deleteContact from '../../../hooks/deleteContactID';
-
+import { useRouter } from 'next/router';
 import AccesDenied from '../../../components/Login/AccessDenied';
 
 const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
@@ -14,9 +14,12 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 	}
 
 	const Properties = data.properties[0].Data;
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { Data } = data;
-
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const router = useRouter();
+	const {
+		query: { ListIdCampaign, NameCampaign, NumberOfContacts },
+	} = router;
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const [session, loading] = useSession();
 
@@ -43,40 +46,30 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 			},
 		];
 
-		deleteContact(datos, Data[0].ID);
+		deleteContact(datos, ListIdCampaign, NameCampaign, NumberOfContacts);
 	};
 
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.detail_contact}>
 				<div className={styles.detail_contact__header}>
 					<h2>Detalles del contacto</h2>
 					<div className={styles.detail_contact__headerButtons}>
 						<button
 							className='button-green'
-							/* onClick={() => {
+							onClick={() => {
 								router.push({
-									pathname: '/contactos/crear-contacto',
+									pathname: '/contactos/editar',
 									query: {
+										Id: Data[0].ID,
 										ListIdCampaign: ListIdCampaign,
 									},
 								});
-							}} */
+							}}
 						>
 							Editar Contacto
 						</button>
-						<button
-							className='button-red'
-							onClick={handleDelete}
-							/* onClick={() => {
-								router.push({
-									pathname: '/contactos/cargar-contactos',
-									query: {
-										ListIdCampaign: ListIdCampaign,
-									},
-								});
-							}} */
-						>
+						<button className='button-red' onClick={handleDelete}>
 							Eliminar
 						</button>
 					</div>

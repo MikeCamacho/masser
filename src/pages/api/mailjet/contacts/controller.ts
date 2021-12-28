@@ -81,7 +81,7 @@ export const getList = async (
 				Data: [],
 				Total: null,
 				TotalAll: null,
-				Message: 'Error en la petición por favor verifique el ID del contacto.',
+				Message: 'Error en la petición por favor verifique el ID de la lista.',
 			});
 		} else {
 			// error del servidor.
@@ -95,7 +95,7 @@ export const getList = async (
 	}
 };
 
-// controller get
+// controller getContact
 export const get = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 	const { contact_ID = '' } = req.query;
 	try {
@@ -128,8 +128,11 @@ export const get = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 			});
 		}
 	} catch (error: any) {
-		console.error('error contact get id:', error);
-		if (error.message.includes('404 Object not found')) {
+		console.error('error contact get id:', error.message);
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			// cunado el id es incorrecto
 			return res.status(404).json({
 				Data: [],
@@ -229,49 +232,10 @@ export const put = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 	} catch (error: any) {
 		// Cuando el id es incorrecto
 		console.error('error contact: Controller Put', error.message);
-		if (error.message.includes('404 Object not found')) {
-			return res.status(404).json({
-				Data: [],
-				Total: null,
-				TotalAll: null,
-				Message: 'Error en la petición por favor verifique el ID del contacto.',
-			});
-		} else {
-			// error del servidor.
-			return res.status(500).json({
-				Data: [],
-				Total: null,
-				TotalAll: null,
-				Message: 'Error en la petición intente mas tarde.',
-			});
-		}
-	}
-};
-
-// controller delete
-export const delet = async (
-	req: NextApiRequest,
-	res: NextApiResponse<Data>
-) => {
-	const { contact_ID = '0' } = req.query;
-	try {
-		// desestructuración.
-		const {
-			body: { Data, Total },
-		} = await mailjet
-			.delete('contact', { version: 'v4' })
-			.id(contact_ID)
-			.request();
-		return res.status(201).json({
-			Data,
-			Total,
-			TotalAll: null,
-			Message: 'contacto eliminado',
-		});
-	} catch (error: any) {
-		// Cuando el id es incorrecto
-		console.error('error contact: Controller delete', error.message);
-		if (error.message.includes('404 Object not found')) {
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			return res.status(404).json({
 				Data: [],
 				Total: null,

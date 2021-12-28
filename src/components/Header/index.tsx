@@ -3,7 +3,9 @@ import { signOut } from 'next-auth/client';
 import Image from 'next/image';
 import styles from './index.module.scss';
 
-const Header: FunctionComponent = ({ collapseSidebar }) => {
+const Header: FunctionComponent<{
+	collapseSidebar: boolean;
+}> = ({ collapseSidebar }) => {
 	return (
 		<header
 			className={`${styles.header} ${

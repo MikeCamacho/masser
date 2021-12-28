@@ -2,8 +2,10 @@
 Archivo de routes
 */
 import type { NextApiRequest, NextApiResponse } from 'next';
+//import { getSession } from 'next-auth/client';
+
 import { post } from './controller';
-import { getSession } from 'next-auth/client';
+import { isValidId } from './middleware';
 
 // declarando el tipo de valor del json a enviar al front
 type Data = {};
@@ -12,17 +14,17 @@ export default async function handler(
 	res: NextApiResponse<Data>
 ) {
 	// si la persona no esta logueado
-	// const session = await getSession({ req });
-	// if (session === null) {
-	// 	return res.status(401).end();
-	// }
+	/* const session = await getSession({ req });
+	if (session === null) {
+		return res.status(401).end();
+	} */
 
 	const { list_ID = '' } = req.query;
 	const { method = '' } = req;
 
 	switch (method.toLocaleUpperCase()) {
 		case 'POST':
-			// post multiple
+			if (!isValidId(req, res, list_ID)) break; // id vacio.
 			if (list_ID !== '') return post(req, res);
 			break;
 		default:

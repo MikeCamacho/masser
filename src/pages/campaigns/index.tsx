@@ -28,7 +28,7 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 		return <AccesDenied />;
 	}
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.view_list_campaigns}>
 				<div className={styles.view_list_campaigns__header}>
 					<h2>Campañas Correo Electrónico</h2>
@@ -56,7 +56,7 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 						</thead>
 						<tbody>
 							{Data.map((item: any, index: number) => {
-								return item.Status >= 0 ? (
+								return item.Status === 0 ? (
 									<tr key={index}>
 										<td>{item.Title}</td>
 										<td>{item.Subject}</td>
@@ -92,7 +92,7 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 export const getServerSideProps: GetServerSideProps<{}> = async () => {
 	try {
 		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_BACKEND}/mailjet/campaigns/drafts?Offset=0&Limit=100`
+			`${process.env.NEXT_PUBLIC_API_BACKEND}/mailjet/campaigns/drafts`
 		);
 		const data = await res.json();
 		return {

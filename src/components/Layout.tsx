@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from 'react';
 import Header from '../components/Header/index';
 import Sidebar from './Sidebar';
 
-const Layout: FunctionComponent = ({ children }) => {
+const Layout: FunctionComponent<{ router: any }> = ({ children, router }) => {
 	const [collapseSidebar, setCollapseSidebar] = useState(false);
 
 	return (
@@ -11,6 +11,7 @@ const Layout: FunctionComponent = ({ children }) => {
 			<Sidebar
 				setCollapseSidebar={setCollapseSidebar}
 				collapseSidebar={collapseSidebar}
+				router={router}
 			/>
 			<div
 				className={`page_wrapper ${

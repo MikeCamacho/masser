@@ -1,13 +1,10 @@
 import Swal from 'sweetalert2';
 
-const createContactForm = async (
-	formInformation: any,
-	ListIdCampaign: number
-) => {
+const createContactForm = async (formInformation: any, ListIdCampaign: any) => {
 	const data = {
 		...formInformation,
 	};
-	console.log(ListIdCampaign);
+
 	var raw = `[{"Email":"${data.Email}","IsExcludedFromCampaigns":"false","Name":"${data.Name}", "Properties": {"Ciudad":"${data.ciudad}", "apellido":"${data.apellido}", "estacion":"${data.estacion}", "telefono":"${data.telefono}", "tipo_vehiculo": "${data.tipo_vehiculo}" }}]`;
 	const requestOptions = {
 		method: 'POST',
@@ -25,8 +22,10 @@ const createContactForm = async (
 		if (response.ok && response.status === 201) {
 			Swal.fire({
 				icon: 'success',
-				title: 'Contacto Creado',
+				title: 'Contacto Guardado',
 				showConfirmButton: true,
+			}).then(() => {
+				window.location.href = '/contactos/lista-de-contactos';
 			});
 		} else {
 			console.log('Error inesperado intente nuevamente');

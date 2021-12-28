@@ -38,8 +38,8 @@ export const getAll = async (
 			TotalAll: TotalAll.body.Total,
 			Message: 'Petición exitosa.',
 		});
-	} catch (error) {
-		console.error('error campains send getAll:', error);
+	} catch (error: any) {
+		console.error('error campaign send getAll:', error.message);
 		res.status(500).json({
 			Data: [],
 			Total: null,
@@ -68,15 +68,17 @@ export const get = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 			Message: 'Petición exitosa.',
 		});
 	} catch (error: any) {
-		console.error('error campaign draft get id:', error.message);
-		if (error.message.includes('404 Object not found')) {
-			// cunado el id es incorrecto
+		console.error('error campaign send getId:', error.message);
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			return res.status(404).json({
 				Data: [],
 				Total: null,
 				TotalAll: null,
 				Message:
-					'Error en la petición por favor verifique el ID de la campaña.',
+					'Error en la petición por favor verifique el ID del del draft.',
 			});
 		} else {
 			// error del servidor.
@@ -136,7 +138,10 @@ export const post = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 		}
 	} catch (error: any) {
 		console.error('error campaign send post: ', error.message);
-		if (error.message.includes('404 Object not found')) {
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			// cunado el id es incorrecto
 			return res.status(404).json({
 				Data: [],

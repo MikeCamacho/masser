@@ -20,15 +20,18 @@ export const controllerGetDraft = async (
 	try {
 		// desestructuración
 		const {
-			body: { Data, Total },
+			body: { Data },
 		} = await mailjet
 			.get('campaigndraft', { version: 'v3' })
 			.id(draft_ID)
 			.request();
 		return Data;
 	} catch (error: any) {
-		console.error('error al consultar usuario:', error.message);
-		if (error.message.includes('404 Object not found')) {
+		console.error('error controllerPut - getDraft', error.message);
+		if (
+			error.message.includes('Object not found') ||
+			error.message.includes('Unsuccessful')
+		) {
 			// cuando el id es incorrecto
 			return res.status(404).json({
 				Data: [],
@@ -52,7 +55,7 @@ export const controllerGetDraft = async (
 export const controllerPutDraft = async (
 	req: NextApiRequest,
 	res: NextApiResponse<Data>,
-	data
+	data: any
 ) => {
 	const { draft_ID = '' } = req.query;
 	let {
@@ -88,13 +91,13 @@ export const controllerPutDraft = async (
 		return Data;
 	} catch (error: any) {
 		// error del servidor.
-		console.error(error.message);
+		console.error('error controllerPut - putDraft', error.message);
 		if (error.message === 'Unsuccessful: 304 Not Modified') return true;
 		return res.status(500).json({
 			Data: [],
 			Total: null,
 			TotalAll: null,
-			Message: '2Error al intentar crear la campaña.',
+			Message: 'Error al intentar crear la campaña.',
 		});
 	}
 };
@@ -113,7 +116,7 @@ export const controllerPutDraftTemplate = async (
 	try {
 		// enlazar contacto con una lista
 		const {
-			body: { Data, Total },
+			body: {},
 		} = await mailjet
 			.post('campaigndraft', { version: 'v3' })
 			.id(dataDraft[0].ID)
@@ -126,7 +129,7 @@ export const controllerPutDraftTemplate = async (
 			});
 		return true;
 	} catch (error: any) {
-		console.error('error contact post list:', error.message);
+		console.error('error controllerPut - PutDraftTemplate', error.message);
 		return res.status(400).json({
 			Data: [],
 			Total: null,

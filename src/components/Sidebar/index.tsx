@@ -2,12 +2,12 @@ import React, { FunctionComponent } from 'react';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import router from 'next/router';
 
 const Sidebar: FunctionComponent<{
-	setCollapseSidebar: boolean;
+	setCollapseSidebar: any;
 	collapseSidebar: boolean;
-}> = ({ setCollapseSidebar, collapseSidebar }) => {
+	router: any;
+}> = ({ setCollapseSidebar, collapseSidebar, router }) => {
 	return (
 		<>
 			<nav

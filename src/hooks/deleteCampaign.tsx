@@ -1,14 +1,9 @@
 import Swal from 'sweetalert2';
 
-const createListContact = async (formInformation: any) => {
-	const data = { ...formInformation };
-
-	var raw = JSON.stringify({
-		Name: data.Name,
-	});
-
+const createContactForm = async (ID: any) => {
+	var raw = '';
 	const requestOptions = {
-		method: 'POST',
+		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -16,17 +11,17 @@ const createListContact = async (formInformation: any) => {
 	};
 	try {
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_BACKEND}/mailjet/contact-lists`,
+			`${process.env.NEXT_PUBLIC_API_BACKEND}/mailjet/campaigns/drafts?draft_ID=${ID}`,
 			requestOptions
 		);
 		console.log(response);
 		if (response.ok && response.status === 201) {
 			Swal.fire({
 				icon: 'success',
-				title: 'Lista creada',
+				title: 'Campaña Borrada',
 				showConfirmButton: true,
 			}).then(() => {
-				window.location.href = '/contactos/lista-de-contactos';
+				window.location.href = '/campaigns';
 			});
 		} else {
 			console.log('Error inesperado intente nuevamente');
@@ -40,5 +35,4 @@ const createListContact = async (formInformation: any) => {
 		console.log('Error inesperado');
 	}
 };
-
-export default createListContact;
+export default createContactForm;

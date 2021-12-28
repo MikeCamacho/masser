@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
 import submitForm from '../../../../hooks/createListContact';
+import { useRouter } from 'next/router';
 
 import Layout from '../../../../components/Layout';
 import styles from './index.module.scss';
@@ -13,7 +14,7 @@ const Index: NextPage = ({}) => {
 		handleSubmit,
 		//formState: { errors },
 	} = useForm();
-
+	const router = useRouter();
 	const onSubmit = (formInformation: any) => {
 		submitForm(formInformation);
 	};
@@ -28,7 +29,7 @@ const Index: NextPage = ({}) => {
 		return <AccesDenied />;
 	}
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.add_list}>
 				<div className={styles.add_list__header}>
 					<h2>Crear una nueva lista de contactos</h2>

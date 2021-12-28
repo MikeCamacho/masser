@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 //import { GetServerSideProps } from 'next';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import submitForm from '../../../hooks/createCampaign';
@@ -26,10 +26,7 @@ const CodeMirror = dynamic(
 const Index: NextPage = ({}) => {
 	const [dataCode, setDataCode] = useState();
 	const [previewCode, setPreviewCode] = useState(false);
-	/* const router = useRouter();
-	const {
-		query: { ListIdCampaign },
-	} = router; */
+	const router = useRouter();
 
 	const {
 		register,
@@ -55,7 +52,7 @@ const Index: NextPage = ({}) => {
 	};
 
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.add_campaign}>
 				<div className={styles.add_campaign__header}>
 					<h2>Crear Campaña</h2>
@@ -141,9 +138,9 @@ const Index: NextPage = ({}) => {
 									/>
 								}
 								<div className={styles.button_preview}>
-									<button className='button-link' onClick={preview}>
+									<a className='button-link' onClick={preview}>
 										Previsualizar
-									</button>
+									</a>
 								</div>
 								{previewCode && (
 									<>

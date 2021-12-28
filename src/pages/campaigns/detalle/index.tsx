@@ -1,9 +1,11 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import Error from 'next/error';
 import Layout from '../../../components/Layout';
 import styles from './index.module.scss';
 import { useSession } from 'next-auth/client';
+import deleteCampaign from '../../../hooks/deleteCampaign';
 
 import AccesDenied from '../../../components/Login/AccessDenied';
 
@@ -11,10 +13,11 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 	if (status !== 201 || Object.keys(data).length === 0) {
 		return <Error statusCode={500} title={'Error de servidor'} />;
 	}
-
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const router = useRouter();
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { Data } = data;
-
+	console.log(Data);
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const [session, loading] = useSession();
 
@@ -25,12 +28,44 @@ const Index: NextPage<{ data: any; status: number }> = ({ data, status }) => {
 	if (session == null) {
 		return <AccesDenied />;
 	}
-
+	const handleDelete = () => {
+		let ID = Data[0].ID;
+		deleteCampaign(ID);
+	};
 	return (
-		<Layout>
+		<Layout router={router}>
 			<div className={styles.detail_campaign}>
 				<div className={styles.detail_campaign__header}>
 					<h2>Detalles de la campaña</h2>
+					<div className={styles.detail_campaign__headerButtons}>
+						<button
+							className='button-green'
+							/* onClick={() => {
+								router.push({
+									pathname: '/contactos/crear-contacto',
+									query: {
+										ListIdCampaign: ListIdCampaign,
+									},
+								});
+							}} */
+						>
+							Editar
+						</button>
+						<button
+							className='button-red'
+							onClick={handleDelete}
+							/* onClick={() => {
+								router.push({
+									pathname: '/contactos/cargar-contactos',
+									query: {
+										ListIdCampaign: ListIdCampaign,
+									},
+								});
+							}} */
+						>
+							Eliminar
+						</button>
+					</div>
 				</div>
 				<div className={styles.detail_campaign__body}>
 					<div className={styles.detail_campaign__body__d_flex}>

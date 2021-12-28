@@ -36,6 +36,8 @@ const createContactForm = async (formInformation: any, dataCode: any) => {
 				icon: 'success',
 				title: 'Campaña creada',
 				showConfirmButton: true,
+			}).then(() => {
+				window.location.href = '/campaigns';
 			});
 		} else {
 			console.log('Error inesperado intente nuevamente');
